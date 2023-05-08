@@ -66,9 +66,3 @@ end
 % [hr]=InvMovementDD(passage_points,robot_model,length(x_interp),1);
 
 
-% check from the current position P which beacon is closest, not counting when its on top of the beacon
-for i=1:length(B)
-    dist(i)=sqrt((B(i).X-P(1))^2+(B(i).Y-P(2))^2);
-end
-[~,index]=min(dist);
-
