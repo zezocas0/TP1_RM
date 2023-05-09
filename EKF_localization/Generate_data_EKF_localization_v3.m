@@ -61,7 +61,7 @@ sig_phi = 0.1;
 
 %% landmark setting: 4 landmarks, format: ID, x, y
 landmarkxy = [
-    -3 -3  0
+    1 -3  0
     2 2 -2
     3 4 0
     4 4 -2
