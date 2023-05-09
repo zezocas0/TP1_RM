@@ -156,31 +156,52 @@ for i=1:length(xinterp)-1
     landmark_ID = randperm(N,2);
     obs_landmark_ID = [obs_landmark_ID;i landmark_ID];
 end
-obs_landmark_ID
+
 %observation range bearing(to put in function later)
 obs_range_bearing = [];
+obs_range_bearing_old=[];
 for i=1:num_steps
 
-
-    landmark1=landmarkxy(obs_landmark_ID(i,2),2:3);
-    landmark2=landmarkxy(obs_landmark_ID(i,3),2:3);
-    
+    id1=obs_landmark_ID(i,2);
+    id2=obs_landmark_ID(i,3);
+   
     % observation noises
     noise_r      =randn*sig_r;
     noise_phi    =randn*sig_phi;
     sensor_noise =[noise_r  noise_phi];
     
-    disp([landmark1, landmark2])
+
+    landmark1=landmarkxy(obs_landmark_ID(i,2),2:3);
+    landmark2=landmarkxy(obs_landmark_ID(i,3),2:3);    
+    % range-bearing to one landmark
+    z1_old = sensormodel(landmark1, xstate_true(i+1,2:4), sensor_noise);
+    % range-bearing to another landmark
+    z2_old = sensormodel(landmark2,xstate_true(i+1,2:4),sensor_noise);
+    
+    % store the obs data
+    obs_range_bearing_old = [obs_range_bearing_old;
+                         i obs_landmark_ID(i,2) z1_old obs_landmark_ID(i,3) z2_old];
+
+
+    B_bearing=BeaconDetection(N,xstate_true(i+1,2:4)); 
 
     % range-bearing to one landmark
-    z1 = sensormodel(landmark1, xstate_true(i+1,2:4), sensor_noise)
-    
+    z1 =[B_bearing(id1).d B_bearing(id1).a] +sensor_noise;
     % range-bearing to another landmark
-    z2 = sensormodel(landmark2,xstate_true(i+1,2:4),sensor_noise);
+    z2=[B_bearing(id2).d B_bearing(id2).a]+sensor_noise;
     
     % store the obs data
     obs_range_bearing = [obs_range_bearing
                          i obs_landmark_ID(i,2) z1 obs_landmark_ID(i,3) z2];
+    
+    %print line where isnan happened
+    if any(isnan(obs_range_bearing(:)))
+        disp(i)
+    end
+    % if obs_range_bearing has any value that is NaN,replace the Nan with 0
+    if any(isnan(obs_range_bearing(:)))
+        obs_range_bearing(isnan(obs_range_bearing))=0;
+    end
 end
 
 % --------------------------------------------------------------------------
