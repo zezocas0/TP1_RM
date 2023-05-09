@@ -1,8 +1,5 @@
 function [xstate_t1,P_t1] = ekf(xstate_t,P_t,control_t,obs_t1,landmarkxym,Delta_T,Q,R)
 
-disp('------------------------------------------------');
-disp('Running Extended Kalman Filter');
-
 %% prediction step
 
 %motion model
