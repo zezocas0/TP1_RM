@@ -41,7 +41,9 @@ end
 
 if plotting==1
 
-    figure()
+    figure(2)
+    set(2, 'Position', [1000,600, 600, 400])
+
     subplot(2,1,1)
     plot(v)
     title('Velocity')

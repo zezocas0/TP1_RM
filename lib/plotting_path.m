@@ -1,7 +1,9 @@
 function [total_x,total_y,xinterp,yinterp] = plotPath(B, Vn, Dt,plotting)
 
 
-figure;
+figure(1);
+
+set(1, 'Position', [1000,0, 600, 400])
 subplot(1, 2, 1); 
 title('path to each beacon ')
 hold on;

@@ -1,4 +1,4 @@
-function [dd,tri,theta]=plotting_velocities(xinterp,yinterp,Dt,r,L)
+function [dd,tri]=plotting_velocities(xinterp,yinterp,Dt,r,L)
 % this function plots the velocities and angular velocities for the
 % tricycle and differential drive models
 % inputs: xinterp and yinterp are the interpolated x and y values from the
