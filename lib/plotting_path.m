@@ -4,10 +4,9 @@ function [total_x,total_y,xinterp,yinterp] = plotPath(B, Vn, Dt,plotting)
 figure(1);
 
 set(1, 'Position', [1000,0, 600, 400])
-subplot(1, 2, 1); 
-title('path to each beacon ')
-hold on;
 
+hold on;
+title("direct path and pchip path")
 
 total_steps=[];
 
@@ -16,8 +15,6 @@ for i = 1:length(B) % loop through each beacon
     % get the current beacon
     curr_beacon = B(i);
     
-    % plot the current beacon as a blue circle
-    plot(curr_beacon.X, curr_beacon.Y, 'bo', linewidth=2,MarkerSize=10);
 
     % plot the line from (0,0) to the first beacon
    
@@ -102,8 +99,6 @@ yinterp = pchip(bn0points(:,1),bn0points(:,2),xinterp );
 
 
 
-subplot(1, 2, 2);
-title('path using pchip')
 % plot the interpolated curve
 plot( xinterp,yinterp, 'g-','LineWidth',2);
 
@@ -116,8 +111,6 @@ for i=1:length(B)
     %plot the beacons
     plot(B(i).X,B(i).Y,'bo','LineWidth',2,'MarkerSize',10);
 end
-
-
 
 % set the axis limits and labels
 axis([0-10 xmax+10 0-10 ymax+10]);

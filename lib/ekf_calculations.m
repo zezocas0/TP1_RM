@@ -1,4 +1,4 @@
-function [error_state]=ekf_calculations(landmarkxy,control_input_mea,control_input_true,obs_range_bearing,xstate_true,obs_landmark_ID,uncertainty,obs_noise,plotting)
+function [xstate_EKF]=ekf_calculations(landmarkxy,control_input_mea,control_input_true,obs_range_bearing,xstate_true,obs_landmark_ID,uncertainty,obs_noise,plotting)
 
 Vn=uncertainty(1);
 Wn=uncertainty(2);
@@ -118,6 +118,6 @@ if plotting==1
 
 
     fprintf("plot done!        \n\n ")
-
+    
 
 end

@@ -45,11 +45,12 @@ z_pred_2 = sensormodel(landmark2,xstatet1_t,nzero);
 % predicted observation
 z_pred = [z_pred_1'; z_pred_2'];
 % innovation
+
 innov = z_all-z_pred;
 % wrap the angles to [-pi, pi]
 innov(2)=wrap(innov(2)); 
 innov(4)=wrap(innov(4));
-%pause
+
 
 %jacobian matrix
 Jh1 = jacobi(landmark1,xstatet1_t(1),xstatet1_t(2));

@@ -1,4 +1,4 @@
-function [xstate_true,control_input_true,control_input_mea,obs_range_bearing,landmarkxy,obs_id_landmarks]=generate_ekf_data(N,sig_v,sig_omega,sig_r,sig_phi,Dt,vels,theta,pchip_data)
+function [xstate_true,control_input_true,control_input_mea,obs_range_bearing,landmarkxy,obs_landmark_ID]=generate_ekf_data(N,sig_v,sig_omega,sig_r,sig_phi,Dt,vels,theta,pchip_data)
 %INPUTS
 %N: number of landmarks
 %sig_v: standard deviation of linear velocity noise
@@ -65,18 +65,14 @@ control_input_mea(:,3)=control_input_mea(:,3)+noises_omega;
 %% generate ground true robot poses
 % format: pose ID, x, y, phi
 xstate_true = [0, xinterp(1), yinterp(1), 0]; % pose at time 0
-
 for i=1:num_steps
     control_i = control_input_true(i,2:3);
     control_noise = [0;0];
     %sampling time
-    %TODO: not to do motionmodel()
-    %xinterp, yinterp and theta to be used for the motion model
-    xstatet1 = motionmodel([xinterp(i),yinterp(i),theta(i)],control_i,control_noise,Dt);
-    xstate_true = [xstate_true; i xstatet1]; %accumulate the xstate Ground Truth
+    %xinterp, yinterp and theta of angles, motion model is not needed Due to xinterp,yinterp and theta are already the true valuesm, no other action needed
+    % xstatet1 = motionmodel([xinterp(i),yinterp(i),theta(i)],control_i,control_noise,Dt);
+    xstate_true=[xstate_true; i xinterp(i) yinterp(i) theta(i)];    
 end
-
-
 %% generating observation data
 % the observed landmark ID at each time step
 % format: time_step ID1 ID2 (assume always see two landmarks for simplication)
@@ -86,15 +82,13 @@ for i=1:length(xinterp)-1
     landmark_ID = randperm(N,2);
     obs_landmark_ID = [obs_landmark_ID;i landmark_ID];
 end
-obs_id_landmarks=obs_landmark_ID;
 
-%observation range bearing(to put in function later)
+
+
 obs_range_bearing = [];
-for i=1:num_steps
-    
+for i=1:num_steps    
     id1=obs_landmark_ID(i,2);
     id2=obs_landmark_ID(i,3);
-   
     % observation noises
     noise_r      =randn*sig_r;
     noise_phi    =randn*sig_phi;
@@ -106,18 +100,47 @@ for i=1:num_steps
     z1 =[B_bearing(id1).d B_bearing(id1).a] +sensor_noise;
     % range-bearing to another landmark
     z2=[B_bearing(id2).d B_bearing(id2).a]+sensor_noise;
+
+
+    % check if any value in z1 is NaN
+    if any(isnan(z1))
+        % randomize a new ID and check if it's NaN
+        new_id = randi(N);
+        while any(isnan([B_bearing(new_id).d B_bearing(new_id).a]))
+            new_id = randi(N);
+        end
+        % replace NaN value with data related to new_id
+        if isnan(z1(1))
+            z1 = [B_bearing(new_id).d B_bearing(new_id).a] + sensor_noise;
+            id1 = new_id;
+        else
+            z1(2) = B_bearing(new_id).a + noise_phi;
+            id1 = new_id;
+        end
+    end
+
+    % check if any value in z2 is NaN
+    if any(isnan(z2))
+        % randomize a new ID and check if it's NaN
+        new_id = randi(N);
+        while any(isnan([B_bearing(new_id).d B_bearing(new_id).a]))
+            new_id = randi(N);
+        end
+        % replace NaN value with data related to new_id
+        if isnan(z2(1))
+            z2 = [B_bearing(new_id).d B_bearing(new_id).a] + sensor_noise;
+            id2 = new_id;
+        else
+            z2(2) = B_bearing(new_id).a + noise_phi;
+            id2 = new_id;
+        end
+    end
     
+
+
     % store the obs data
     obs_range_bearing = [obs_range_bearing;
-                         i obs_landmark_ID(i,2) z1 obs_landmark_ID(i,3) z2];
+                         i id1 z1 id2 z2];
     
-    %print line where isnan happened
-    % if any(isnan(obs_range_bearing(:)))
-    %     disp(i)
-    % end
-    % if obs_range_bearing has any value that is NaN,replace the Nan with 0
-    if any(isnan(obs_range_bearing(:)))
-        obs_range_bearing(isnan(obs_range_bearing))=0;
-    end
 
 end
