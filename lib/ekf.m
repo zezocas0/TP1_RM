@@ -1,5 +1,7 @@
 function [xstate_t1,P_t1] = ekf(xstate_t,P_t,control_t,obs_t1,landmarkxym,Delta_T,Q,R)
 
+%number of landmarks
+N= size(landmarkxym(:,1),1);
 %% prediction step
 
 %motion model
@@ -30,35 +32,63 @@ Pt1_t= Jfx*P_t*Jfx'+Jfw*Q*Jfw';                                          %uncert
 
 %% update step
 
-% get the observations
-z_all = [
-            obs_t1(2:3)'
-            obs_t1(5:6)'
-            ]; % two observations as a column vector
-%
-% get the landmark positions
-landmark1=landmarkxym(obs_t1(1),2:3);
-landmark2=landmarkxym(obs_t1(4),2:3);
-nzero = [0 0];                                      %set noise equal to 0
-z_pred_1 = sensormodel(landmark1,xstatet1_t,nzero);
-z_pred_2 = sensormodel(landmark2,xstatet1_t,nzero);
-% predicted observation
-z_pred = [z_pred_1'; z_pred_2'];
+% concatenate all observations and predicted observations
+z_all = [];
+z_pred = [];
+Jh = [];
+
+obs_i=obs_t1;
+for i = 1:N
+    
+    obs_i = obs_t1;
+    
+    num_triplets = length(obs_i) / 3;
+    idx = 3*(i-1) + 1;
+    % Extract the id value
+    id = obs_i(idx);
+    
+    %xy coords of the lanrmark with number id
+    landmark_i= landmarkxym(id,2:3);
+    
+    
+    nzero = [0 0]; %set noise equal to 0
+    
+    
+    % get the observation and predicted observation
+    z_i = [ obs_i(idx+1) obs_i(idx+2)];
+    
+    z_pred_i = sensormodel(landmark_i,xstatet1_t,nzero);
+    
+    % add to the concatenated vectors
+    z_all = [z_all; z_i'];
+    z_pred = [z_pred; z_pred_i'];
+    
+    % compute the Jacobian and add to the concatenated matrix
+    Jh_i = jacobi(landmark_i,xstatet1_t(1),xstatet1_t(2));
+    Jh = [Jh; Jh_i];
+    
+
+
 % innovation
-
-innov = z_all-z_pred;
+innov = z_all - z_pred;
 % wrap the angles to [-pi, pi]
-innov(2)=wrap(innov(2)); 
-innov(4)=wrap(innov(4));
+innov(2:2:end)=wrap(innov(2:2:end));
 
+%%%% do henrique modification here DONT TOUCH 
+innov(isnan(innov))=1; % if landmark is not observed, set innovation to 0
+%%%%%%%
 
-%jacobian matrix
-Jh1 = jacobi(landmark1,xstatet1_t(1),xstatet1_t(2));
-Jh2 = jacobi(landmark2,xstatet1_t(1),xstatet1_t(2));
+end
 
-Jh = [Jh1
-      Jh2
-      ];
+% innovation
+innov = z_all - z_pred;
+% wrap the angles to [-pi, pi]
+innov(2:2:end)=wrap(innov(2:2:end));
+
+%%%% do henrique modification here DONT TOUCH 
+innov(isnan(innov))=1; % if landmark is not observed, set innovation to 0
+%%%%%%%
+
 
 S = Jh*Pt1_t*Jh'+R;
 K = Pt1_t*Jh'*inv(S);
@@ -70,7 +100,10 @@ Pt1_t1      = Pt1_t - K*Jh*Pt1_t;
 xstate_t1 = xstatet1_t1';
 P_t1      = Pt1_t1;
 
+
 end
+
+
 
 function nu = wrap(alpha)
 
@@ -85,4 +118,3 @@ nu = alpha;
 		nu = nu + 2 * pi;
     end
 end
-

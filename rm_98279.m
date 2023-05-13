@@ -1,85 +1,60 @@
-function rm_98279(varargin)
+function rm_98279(N,Dt,r,L,Vn,Wn)
 
 
 addpath lib/
-clear all;close all;clc;
-
+close all;clc;
+if nargin<6
+    Wn=0.1; % angular velocity uncertainty
+end
+if nargin<5
+    Vn=0.1; % velocity uncertainty
+end
+if nargin<4
+    L=1; % wheel base
+end
 if nargin < 3
-    plotting = 1;
-else
-    plotting = varargin{3};
+r=0.15; %m wheel radius
 end
-
 if nargin < 2
-    Dt = 1;
-else
-    Dt = varargin{2};
+    Dt = 1; %time step
 end
-
 if nargin < 1
-    N = 4;
-else
-    N = varargin{1};
+    N = 4; %number of beacons
 end
 
-
+plotting = 1;
 % plotting=input('plots yes(1) or no(0)?');
 if ~(plotting == 0 || plotting == 1)
     warning('Input should be 0 or 1.');
 end
-%for testing plotting=1
 
 
 
 %% initialização values
 % posição inicial robot
 x=[0,0,0];
-
-r=0.15; %m wheel radius
-L=1; %m wheel seperation
-Vn=0.1; %uncertainty of linear velocity 0.1m/s
-Wn=0.1; %uncertainty of angular velocity 0.1m/s
-
-% Dt=5;
+%velocidade linear do robot
 Vlinear=5;
-
-
 
 %% noise level setting -- to generating data for ekf
 %control: velocity, turnrate
 sig_v     = 0.1;
 sig_omega = 0.1;
-
 % observation: range, bearing
 sig_r   = 0.1;
 sig_phi = 0.1;
 
 
 
-%% robot and beacon initialization
-% calling the beacon detection
-% function [B]=BeaconDetection(N,P,obsNoise)
-% INPUTS:
-% N - number of beacons to create/use (N>3) but large values may not be respected
-% P - current estimated position (x,y,a). (0,0,0) if absent.
-% obsNoise - observation noise [range, heading]. If not passed, use a default value
 
 B=BeaconDetection(N,x);
-
-% B - array of structures with data from beacons:
-% B.X - real beacon X position (fixed and known)
-% B.Y - real beacon Y position (fixed and known)
-% B.d - measured distance (with uncertainty)
-% B.a - measured angle (with uncertainty)
-% B.dn - sigma in B.d (either the passed in obsNoise or a default)
-% B.an - sigma in B.a (either the passed in obsNoise or a default)
 
 
 
 
 %% calculate and plot the path to each beacon 
+[total_x,total_y,xinterp,yinterp] = plotting_path(B, Vlinear, Dt);
 
-[total_x,total_y,xinterp,yinterp] = plotting_path(B, Vlinear, Dt,plotting);
 
 
 
@@ -104,7 +79,7 @@ B=BeaconDetection(N,x);
 %--------------------------------------------------------------------------
 
 
-[dd,tri]=plotting_velocities_wheels(xinterp,yinterp,Dt,r,L,Vn,Wn,plotting);
+[dd,tri]=plotting_velocities_wheels(xinterp,yinterp,v,w,Dt,r,L,Vn,Wn,plotting);
 
 
 %--------------------------------------------------------------------------
@@ -119,11 +94,26 @@ end
 
 % Save the files to the directory
 disp(['Saving all files (loc_98279.txt, DD_98279.txt, TRI_98279.txt) to ' DIR ' folder']);
-save(fullfile(DIR, 'loc_98279.txt'), 'xstate_true', '-ascii');
-save(fullfile(DIR, 'DD_98279.txt'), 'dd', '-ascii');
-save(fullfile(DIR, 'TRI_98279.txt'), 'tri', '-ascii');
 
 
+xstate_file=fopen(fullfile(DIR, 'loc_98279.txt'),'wt');
+for i =1:length(xstate_EKF)
+    fprintf(xstate_file,'%f ,%f, %f,%f \n',xstate_EKF(i,1),xstate_EKF(i,2),xstate_EKF(i,3),xstate_EKF(i,4));
+end
+fclose(xstate_file);
+
+
+dd_file= fopen(fullfile(DIR, 'DD_98279.txt'),'wt');
+for i=1:length(dd)
+    fprintf(dd_file,'%f ,%f\n',dd(1,i),dd(2,i));
+end
+fclose(dd_file);
+
+tri_file= fopen(fullfile(DIR, 'TRI_98279.txt'),'wt');
+for i =1:length(tri)
+    fprintf(tri_file,'%f ,%f\n',tri(1,i),tri(2,i));
+end
+fclose(tri_file);
 
 
 

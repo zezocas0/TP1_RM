@@ -74,12 +74,11 @@ for i=1:num_steps
     xstate_true=[xstate_true; i xinterp(i) yinterp(i) theta(i)];    
 end
 %% generating observation data
-% the observed landmark ID at each time step
-% format: time_step ID1 ID2 (assume always see two landmarks for simplication)
+
 obs_landmark_ID = [];
 for i=1:length(xinterp)-1
     % randomly choose two landmarks
-    landmark_ID = randperm(N,2);
+    landmark_ID = randperm(N,N);
     obs_landmark_ID = [obs_landmark_ID;i landmark_ID];
 end
 
@@ -87,60 +86,29 @@ end
 
 obs_range_bearing = [];
 for i=1:num_steps    
-    id1=obs_landmark_ID(i,2);
-    id2=obs_landmark_ID(i,3);
+    for j=1:N
+        id(j)=obs_landmark_ID(i,j+1);
+    end 
     % observation noises
     noise_r      =randn*sig_r;
     noise_phi    =randn*sig_phi;
     sensor_noise =[noise_r  noise_phi];
     
     B_bearing=BeaconDetection(N,xstate_true(i+1,2:4)); 
-
-    % range-bearing to one landmark
-    z1 =[B_bearing(id1).d B_bearing(id1).a] +sensor_noise;
-    % range-bearing to another landmark
-    z2=[B_bearing(id2).d B_bearing(id2).a]+sensor_noise;
-
-
-    % check if any value in z1 is NaN
-    if any(isnan(z1))
-        % randomize a new ID and check if it's NaN
-        new_id = randi(N);
-        while any(isnan([B_bearing(new_id).d B_bearing(new_id).a]))
-            new_id = randi(N);
-        end
-        % replace NaN value with data related to new_id
-        if isnan(z1(1))
-            z1 = [B_bearing(new_id).d B_bearing(new_id).a] + sensor_noise;
-            id1 = new_id;
-        else
-            z1(2) = B_bearing(new_id).a + noise_phi;
-            id1 = new_id;
-        end
-    end
-
-    % check if any value in z2 is NaN
-    if any(isnan(z2))
-        % randomize a new ID and check if it's NaN
-        new_id = randi(N);
-        while any(isnan([B_bearing(new_id).d B_bearing(new_id).a]))
-            new_id = randi(N);
-        end
-        % replace NaN value with data related to new_id
-        if isnan(z2(1))
-            z2 = [B_bearing(new_id).d B_bearing(new_id).a] + sensor_noise;
-            id2 = new_id;
-        else
-            z2(2) = B_bearing(new_id).a + noise_phi;
-            id2 = new_id;
-        end
-    end
     
 
+    z=[];
+    %z=based on variable id, get the range and bearing of landmark with that id. z is a vector with id,range,bearing
+
+    for j = 1:N
+        z=[z,id(j) B_bearing(id(j)).d B_bearing(id(j)).a];
+    end
 
     % store the obs data
-    obs_range_bearing = [obs_range_bearing;
-                         i id1 z1 id2 z2];
-    
 
+    
+    obs_range_bearing = [obs_range_bearing;
+                         i z ];
+    
 end
+

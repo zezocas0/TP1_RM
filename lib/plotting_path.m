@@ -1,4 +1,4 @@
-function [total_x,total_y,xinterp,yinterp] = plotPath(B, Vn, Dt,plotting)
+function [total_x,total_y,xinterp,yinterp] = plotPath(B, Vn, Dt)
 
 
 figure(1);
@@ -16,20 +16,17 @@ for i = 1:length(B) % loop through each beacon
     curr_beacon = B(i);
     
 
-    % plot the line from (0,0) to the first beacon
-   
     if i == 1
 
         % from 0,0 to the first beacon
         steps = round(sqrt((curr_beacon.X)^2 + (curr_beacon.Y)^2) / (Vn*Dt));   
+
         total_steps=[total_steps ;steps];
         x=linspace(0, curr_beacon.X, steps);
         total_x=x;
         y=linspace(0, curr_beacon.Y, steps);
         total_y=y;
 
-        hold on; 
-        plot(x,y, 'r*', 'MarkerSize', 10);
 
     else
         % get the previous beacon
@@ -53,8 +50,6 @@ for i = 1:length(B) % loop through each beacon
         total_y=[total_y ,y];
         % plot the dots in between the beacons
         
-        hold on;
-        plot(x, y, 'r*', 'MarkerSize', 10);
         
     end
 end
@@ -103,23 +98,28 @@ yinterp = pchip(bn0points(:,1),bn0points(:,2),xinterp );
 plot( xinterp,yinterp, 'g-','LineWidth',2);
 
 hold on;
-for i = 1:length(xinterp)
-    plot([xinterp(i), xinterp(i)], [0, yinterp(i)], '--k','Color','c');
-end
+    %plotting the stepped xy values
+plot(total_x,total_y,'r.','MarkerSize',10);
+
 hold on;
+%plot the beacons
 for i=1:length(B)
-    %plot the beacons
     plot(B(i).X,B(i).Y,'bo','LineWidth',2,'MarkerSize',10);
 end
 
+for i = 1:length(xinterp)
+    plot([xinterp(i), xinterp(i)], [0, yinterp(i)], '--k','Color','c');
+end
+
 % set the axis limits and labels
+ymax=   max(yinterp);
+xmax = B(end).X; % set the maximum x-coordinate to the last beacon in the array
 axis([0-10 xmax+10 0-10 ymax+10]);
+
 xlabel('X');
 ylabel('Y');
+legend('pchip ','stepped path','beacons','Location','northwest')
 
-if plotting== 0
-    close all;
-end
 
 
 

@@ -4,7 +4,7 @@ Vn=uncertainty(1);
 Wn=uncertainty(2);
 sig_r=obs_noise(1);
 sig_phi=obs_noise(2);
-
+N= size(landmarkxy(:,1),1);
 
 % for storing the results
 xstate_EKF = [0, zeros(1,3)]; % pose at time 0
@@ -13,7 +13,7 @@ P_EKF      = 0.01*eye(3);  % initial covariance matrix
 % noise
 Q=[Vn^2,0;0,Wn^2];
 
-R_i=diag([sig_r^2,sig_phi^2]);
+R_i=[sig_r^2,0;0 sig_phi^2];
 
 num_steps = height(control_input_true);
 
@@ -39,7 +39,7 @@ for step = 1:num_steps
     
     %discretization time interval
     Delta_T=1;
-    R = [R_i,zeros(2,2);zeros(2,2),R_i]; % because observing two landmarks each step
+    R=kron(eye(N),R_i);
     %using ekf function
     [xstateT1_T1,PT1_T1] = ekf(xstate_t,P_t,control_t,obs_t1,landmarkxy,Delta_T,Q,R);
     
