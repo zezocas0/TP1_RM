@@ -1,5 +1,9 @@
 function rm_98279(N,Dt,r,L,Vn,Wn)
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            funciton RM_98279
+%   This function is the main function of the project
+%   Created by: José Santos 98279
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath lib/
 close all;clc;
@@ -60,7 +64,7 @@ B=BeaconDetection(N,x);
 
 
 % velocities of the robot when moving between the points interp(oints)
-[v,w,theta,dtheta]=plotting_velocities(xinterp,yinterp,Dt,Vn,Wn,plotting);
+[v,w,theta,dtheta]=plotting_velocities(xinterp,yinterp,Dt,Vn,Wn);
 
 
 
@@ -73,16 +77,20 @@ B=BeaconDetection(N,x);
 
 %% EKF calculations ---------------------------------------------------------
 
-[xstate_EKF]=ekf_calculations(landmarkxy,control_input_mea,control_input_true,obs_range_bearing,xstate_true,obs_landmark_ID,[Vn;Wn],[sig_r;sig_phi],plotting);
+[xstate_EKF,P_EKF]=ekf_calculations(landmarkxy,control_input_mea,control_input_true,obs_range_bearing,xstate_true,obs_landmark_ID,[Vn;Wn],[sig_r;sig_phi],plotting);
 
 
 %--------------------------------------------------------------------------
 
 
-[dd,tri]=plotting_velocities_wheels(xinterp,yinterp,v,w,Dt,r,L,Vn,Wn,plotting);
+[dd,tri]=plotting_velocities_wheels(xstate_EKF,Dt,r,L,Vn,Wn);
 
 
 %--------------------------------------------------------------------------
+
+
+
+
 
 
 DIR = 'output';

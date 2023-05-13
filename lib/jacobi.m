@@ -1,5 +1,11 @@
 function [H]= jacobi(xym,x,y)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            funciton jacobi
+%   Function NOT modified. Obtained by teacher
+%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 a = (x-xym(1))/(sqrt((x-xym(1))^2+(y-xym(2))^2));
 b = (y-xym(2))/(sqrt((x-xym(1))^2+(y-xym(2))^2));
 c = 0;

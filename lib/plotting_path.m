@@ -1,12 +1,11 @@
 function [total_x,total_y,xinterp,yinterp] = plotPath(B, Vn, Dt)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            funciton plotPath
+%   Function plots the initial path and pchip path
+%   Created by: José Santos 98279
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-figure(1);
-
-set(1, 'Position', [1000,0, 600, 400])
-
-hold on;
-title("direct path and pchip path")
 
 total_steps=[];
 
@@ -54,14 +53,6 @@ for i = 1:length(B) % loop through each beacon
     end
 end
 
-% set the axis limits and labels
-
-xmax = B(end).X; % set the maximum x-coordinate to the last beacon in the array
-axis([0-10 xmax+10 0-10 ymax+10]);
-xlabel('X');
-ylabel('Y');
-
-% create a subplot with pchip interpolation
 
 %beacon and 0,0
 bn0points=[0 0];
@@ -78,15 +69,9 @@ for i=1:length(B)
 
     
 end
-
-
-
 %remove duplicates
-
 [Z,idx]= unique(xinterp','stable');
 xinterp=xinterp(:,idx);
-
-
 % interpolate the y-coordinates using pchip()
 yinterp = pchip(bn0points(:,1),bn0points(:,2),xinterp );
 
@@ -94,9 +79,15 @@ yinterp = pchip(bn0points(:,1),bn0points(:,2),xinterp );
 
 
 
+
+figure(1);
+
+set(1, 'Position', [1000,0, 600, 400])
+
+hold on;
+title("direct path and pchip path")
 % plot the interpolated curve
 plot( xinterp,yinterp, 'g-','LineWidth',2);
-
 hold on;
     %plotting the stepped xy values
 plot(total_x,total_y,'r.','MarkerSize',10);
@@ -106,7 +97,6 @@ hold on;
 for i=1:length(B)
     plot(B(i).X,B(i).Y,'bo','LineWidth',2,'MarkerSize',10);
 end
-
 for i = 1:length(xinterp)
     plot([xinterp(i), xinterp(i)], [0, yinterp(i)], '--k','Color','c');
 end

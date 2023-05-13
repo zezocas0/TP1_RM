@@ -1,18 +1,23 @@
 function [xstate_t1,P_t1] = ekf(xstate_t,P_t,control_t,obs_t1,landmarkxym,Delta_T,Q,R)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            funciton ekf
+%   Exetended Kalman Filter
+%   Modified from EKF.m  by: José Santos 98279
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 %number of landmarks
 N= size(landmarkxym(:,1),1);
-%% prediction step
 
+%% prediction step
 %motion model
 pzero =[0 0];        %set noies equal to 0
 
 %motion model estimate
 [xstatet1_t] = motionmodel(xstate_t,control_t,pzero,Delta_T);
-%pause
-%predicted covariance matrix (uncertainty)
-%jacobian matrix for F
 
+%predicted covariance matrix (uncertainty)
 temp = -Delta_T*control_t(1)*sin(xstate_t(3));
 temp2= -Delta_T*control_t(1)*cos(xstate_t(3));
 Jfx=[1 0 temp
@@ -28,7 +33,7 @@ Jfw=[temp3 0
      0     Delta_T
      ];
 
-Pt1_t= Jfx*P_t*Jfx'+Jfw*Q*Jfw';                                          %uncertainty
+Pt1_t= Jfx*P_t*Jfx'+Jfw*Q*Jfw';     %uncertainty
 
 %% update step
 
@@ -38,7 +43,7 @@ z_pred = [];
 Jh = [];
 
 obs_i=obs_t1;
-for i = 1:N
+for i = 1:N % modified part(for N beacons besides 2)
     
     obs_i = obs_t1;
     
@@ -69,14 +74,6 @@ for i = 1:N
     
 
 
-% innovation
-innov = z_all - z_pred;
-% wrap the angles to [-pi, pi]
-innov(2:2:end)=wrap(innov(2:2:end));
-
-%%%% do henrique modification here DONT TOUCH 
-innov(isnan(innov))=1; % if landmark is not observed, set innovation to 0
-%%%%%%%
 
 end
 
@@ -85,9 +82,9 @@ innov = z_all - z_pred;
 % wrap the angles to [-pi, pi]
 innov(2:2:end)=wrap(innov(2:2:end));
 
-%%%% do henrique modification here DONT TOUCH 
+%%%% To remove NaN points from beaconDetection from obs_range_bearing 
 innov(isnan(innov))=1; % if landmark is not observed, set innovation to 0
-%%%%%%%
+%%%%
 
 
 S = Jh*Pt1_t*Jh'+R;
