@@ -97,10 +97,10 @@ with was modified to meet the requirements of the teacher.
 
 
 \section{functions}
-In this part of the report I will explain the functions that were created and were used, and a description on what they do. 
+In this part of the report i will explain the functions that were created and a brief explanation of how they work.
 
 
-\subsection*{plotting\_path}
+\subsection*{Plotting\_path}
 This function has two objectives, one obtainin the steps needed to reach the goal, passing through the landmarks 
 and the other is to use the function in Matlab named \textbf{pchip()} to obtain the smooth path that the robot will take.
 
@@ -115,22 +115,20 @@ For the calculation of steps, this is based on the distance between beacons, or 
 
 The equation \begin{math} \left(\frac{\sqrt{((x2-x1)^2+(y2-y1)^2}}{\mathrm{Dt}\, * \mathrm{Vn}}\right)
 \end{math} is used to obtain the number of steps taken between beacons, where the time step and velocity.
-With the number of steps aquired, we can obtain the total number of  x and y variables.
+With the number of steps aquired, we can obtain the total number of  points, each with x and y variables.
 \\ 
 After obtaining the total x and y values evenly spaced between the beacons, we use the \textbf{unique()} function to obtain the unique x values, 
-and with these interpolated values or "xintep" values, we use the pchip function with all the beacons and the starting position, to obtain the interpolated y values. 
-\\
+and with these interpolated values or "xintep" values, we use the pchip function to obtain the interpolated y values,these being plotted with all the beacons and evenly spaced points.
+The results of this function the figure \ref*{plotting_path_fig}, is showed on the right. 
 
-To see the results of this function the figure \ref*{plotting_path_fig}, is showed on the right. 
-
-
+\break
 
 
 \subsection*{Plotting\_velocities}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{plotting_velocities.png}
+    \includegraphics[width=0.43\textwidth]{plotting_velocities.png}
     \caption{Plotting\_path function results}
     \label{plotting_vel_fig}
 \end{wrapfigure}
@@ -139,7 +137,7 @@ This function uses the \textbf{pchip()} interpolated coordinates to obtain the v
 To calculate the linear and angular velocities we will use to generate the values for the Extended Kalman Filter, we use the following equations:
 \\
 \begin{math}
-    distance=\sqrt{(x2-x1)^2+(y2-y1)^2} \\  ;  \theta=\sin(y2-y1)/distance
+    distance=\sqrt{(x2-x1)^2+(y2-y1)^2} \\  \theta=\sin(y2-y1)/distance
 \end{math}
 \\
 The velocity noises for the velocity are calculated by multiplying noise variable with a random sample from a standard normal distribution.
@@ -156,8 +154,8 @@ The caltulations for the linear and angular velocities are:
 
 \subsection*{Generate\_ekf\_data}
 This function is used to generate the main data that will be used on the Extended Kalman Filter. 
-Most of this variables are used to assist the prediction, like the variables \textbf{control\_imput\_mea} and \textbf{obs\_range\_bearing}, 
-while others are used to verify the accuracy of the Extended Kalman Filter, like the variables \textbf{xstate\_true,} and \textbf{control\_imput\_true}.  
+Most of this variables are used to assist the prediction, such as \textbf{control\_imput\_mea} and \textbf{obs\_range\_bearing}, 
+while others are used to verify the accuracy of the Extended Kalman Filter,for example  \textbf{xstate\_true,} and \textbf{control\_imput\_true}.  
 In this function other variables were made, mostly for ease of creating other functions, these being \textbf{landmarkxy,} and \textbf{obs\_landmark\_ID}.
 
 \subsection*{ekf\_calculations}
@@ -167,7 +165,7 @@ After this, the function \textbf{ekf} will calculate the estimated position of t
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{ekf_calculationspng.png}
+    \includegraphics[width=\textwidth]{ekf_calculationspng.png}
     \caption{ekf\_calculations function results}
     \label{ekf_calculations_fig}
 \end{figure}
@@ -189,8 +187,6 @@ To be able to see more clearly the errors, the table \ref{errors table}  was mad
     \end{tabular}
     \end{table}
 
-% TODO: a graph with the results of the errors and stuff
-\break
 
 
 \subsection*{EKF}
@@ -238,14 +234,14 @@ The uncertainty Matrix is calculated by the following equations:
 
 The next step is to use the \textbf{sensormodel(xym,xstate1,ndnphi)}function to get a predicted range and bearing with noise from the position(xstate1) of the robot. 
 \\\begin{math}
-    z1=\sqrt{(x-xstate)^2+(y-ystate)^2}+\text{ndnphi} \\
-    z2=\arctan2(y-ystate,x-xstate)-\theta+\text{ndnphi}
+    bearing=\sqrt{(x-xstate)^2+(y-ystate)^2}+\text{ndnphi} \\
+    angle=\arctan2(y-ystate,x-xstate)-\theta+\text{ndnphi}
 \end{math}
 \\
 With the predicted range and bearing we can subtract both of them and obtain the error,this being the variable \textbf{innov} that will be used for the calculations later.
 \\
 
-Another calculation step is to calculate the Jacobian of the sensor model, this is done by follwoing these equations:
+Another calculation step is to obtain the Jacobian of the sensor model, this is done by follwoing these equations:
 \
 \begin{equation}
 a = \frac{x - xym(1)}{\sqrt{(x - xym(1))^2 + (y - xym(2))^2}}, \quad
@@ -291,7 +287,7 @@ The results of these equations are below, where we can see the slight variations
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{plotting_robot_vels.png}
+    \includegraphics[width=\textwidth]{plotting_robot_vels.png}
     \caption{Plotting\_path function results}
     \label{plotting_robot_fig}
 \end{figure}
@@ -325,14 +321,14 @@ The calculations for the Tricicle velocities are based on the equations of the c
 \section{conclusion}
 
 
-
-In conclusion, this project was a great way to understand the concepts of the EKF and how to use it in a practical way. 
-The Extended Kalman Filter is a very good way of predicting the position of a robot, but it is not perfect, as we can see in the results, the estimated path is not the same as the real path. This is because of the noise of the sensors and the noise of the robot's movement, which is not taken into account in the EKF.
-This is a very good way to estimate the position of the robot, but it is not perfect and it has its limitations.
-\\The results of the Direct Drive and the Tricicle robots are very similar, this is because the equations used to calculate the velocities are very similar, the only difference being the length of the Tricicle robot and it's  third wheel. 
-
-
-
+In conclusion, this project was a great way to understand the concepts of the
+Extended Kalman Filter and how to use it in a practical way. EKF is a very good system that predicts the position of a robot, but it is not perfect, as we can
+see in the results, the estimated path is not the same as the real path, this is
+because of the noise of the sensors and the noise of the robot’s movement, which
+is not taken into account.
+\\ This is a very good way to estimate the
+position of the robot, but it is not perfect as it has it's limitations.
+The results of the Direct Drive and the Tricicle robots are very similar because the equations used to calculate the velocities are very similar being the only difference it's length of the Tricicle robot as well as the third wheel
 
 
 \end{document}
