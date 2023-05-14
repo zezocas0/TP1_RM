@@ -43,16 +43,18 @@ for i=1:length(v)
     %TRI- rear wheel velocity and front wheel angular position
 
 
-    TRI_v(i)= v(i)-(w(i)*L/2);
+    TRI_v(i)= v(i)-(w(i)*L);
     
 
     %calculate angular velocity of rear wheel
-    w_r(i)=w(i)*r;
-    %front wheel direction
-    f_alfa(i)=atan(L*w_r(i)/v(i));
+    w_r(i)=w(i)*L;
 
-
+    % %front wheel direction
+    f_alfa(i)=atan(w_r(i)/TRI_v(i));
+    
 end
+% f_alfa=asin(w*L./TRI_v)-- gives imaginary numbers
+
 % values to save on main function
 dd=[DD_l;DD_r];
 tri=[TRI_v;f_alfa];

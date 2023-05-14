@@ -18,6 +18,7 @@ pzero =[0 0];        %set noies equal to 0
 [xstatet1_t] = motionmodel(xstate_t,control_t,pzero,Delta_T);
 
 %predicted covariance matrix (uncertainty)
+
 temp = -Delta_T*control_t(1)*sin(xstate_t(3));
 temp2= -Delta_T*control_t(1)*cos(xstate_t(3));
 Jfx=[1 0 temp
@@ -25,6 +26,7 @@ Jfx=[1 0 temp
      0 0 1     
      ];
 
+% noise matrix
 temp3 =  Delta_T*control_t(1)*cos(xstate_t(3));
 temp4 =  Delta_T*control_t(1)*sin(xstate_t(3));
 
@@ -33,7 +35,7 @@ Jfw=[temp3 0
      0     Delta_T
      ];
 
-Pt1_t= Jfx*P_t*Jfx'+Jfw*Q*Jfw';     %uncertainty
+Pt1_t= Jfx*P_t*Jfx'+Jfw*Q*Jfw'  ; %uncertainty
 
 %% update step
 
@@ -62,6 +64,7 @@ for i = 1:N % modified part(for N beacons besides 2)
     % get the observation and predicted observation
     z_i = [ obs_i(idx+1) obs_i(idx+2)];
     
+    % get the predicted observation
     z_pred_i = sensormodel(landmark_i,xstatet1_t,nzero);
     
     % add to the concatenated vectors
@@ -86,7 +89,7 @@ innov(2:2:end)=wrap(innov(2:2:end));
 innov(isnan(innov))=1; % if landmark is not observed, set innovation to 0
 %%%%
 
-
+% Kalman gain
 S = Jh*Pt1_t*Jh'+R;
 K = Pt1_t*Jh'*inv(S);
 

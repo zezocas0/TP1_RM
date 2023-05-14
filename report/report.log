@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.3.29)  13 MAY 2023 01:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.3.29)  14 MAY 2023 19:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/jose/Documents/MATLAB/RM/TP1_RM/presentation/report.tex
-(/home/jose/Documents/MATLAB/RM/TP1_RM/presentation/report.tex
+**/home/jose/Documents/MATLAB/RM/TP1_RM/report/report.tex
+(/home/jose/Documents/MATLAB/RM/TP1_RM/report/report.tex
 LaTeX2e <2020-02-02> patch level 2
-L3 programming layer <2020-02-14> (/home/jose/Documents/MATLAB/RM/TP1_RM/presentation/llncs.cls
+L3 programming layer <2020-02-14> (/home/jose/Documents/MATLAB/RM/TP1_RM/report/llncs.cls
 Document Class: llncs 2018/03/10 v2.20 
  LaTeX document class for Lecture Notes in Computer Science
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -375,51 +375,58 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
 )
 \Hy@SectionHShift=\skip54
+) (/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen177
+\WF@size=\dimen178
+\c@WF@wrappedlines=\count304
+\WF@box=\box97
+\WF@everypar=\toks25
+Package: wrapfig 2003/01/31  v 3.6
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count304
-\l__pdf_internal_box=\box97
-) (/home/jose/Documents/MATLAB/RM/TP1_RM/presentation/report.aux)
+\l__kernel_color_stack_int=\count305
+\l__pdf_internal_box=\box98
+) (/home/jose/Documents/MATLAB/RM/TP1_RM/report/report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count305
-\scratchdimen=\dimen177
-\scratchbox=\box98
-\nofMPsegments=\count306
-\nofMParguments=\count307
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count308
-\MPscratchDim=\dimen178
-\MPnumerator=\count309
-\makeMPintoPDFobject=\count310
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count306
+\scratchdimen=\dimen179
+\scratchbox=\box99
+\nofMPsegments=\count307
+\nofMParguments=\count308
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count309
+\MPscratchDim=\dimen180
+\MPnumerator=\count310
+\makeMPintoPDFobject=\count311
+\everyMPtoPDFconversion=\toks27
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@lstlisting=\count311
-\AtBeginShipoutBox=\box99
-Package hyperref Info: Link coloring OFF on input line 46.
+\c@lstlisting=\count312
+\AtBeginShipoutBox=\box100
+Package hyperref Info: Link coloring OFF on input line 47.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -427,58 +434,135 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count312
+\c@section@level=\count313
 )
-LaTeX Info: Redefining \ref on input line 46.
-LaTeX Info: Redefining \pageref on input line 46.
-LaTeX Info: Redefining \nameref on input line 46.
- (/home/jose/Documents/MATLAB/RM/TP1_RM/presentation/report.out) (/home/jose/Documents/MATLAB/RM/TP1_RM/presentation/report.out)
+LaTeX Info: Redefining \ref on input line 47.
+LaTeX Info: Redefining \pageref on input line 47.
+LaTeX Info: Redefining \nameref on input line 47.
+ (/home/jose/Documents/MATLAB/RM/TP1_RM/report/report.out) (/home/jose/Documents/MATLAB/RM/TP1_RM/report/report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
 <logo.jpg, id=4, 903.375pt x 903.375pt>
 File: logo.jpg Graphic file (type jpg)
 <use logo.jpg>
-Package pdftex.def Info: logo.jpg  used on input line 66.
+Package pdftex.def Info: logo.jpg  used on input line 67.
 (pdftex.def)             Requested size: 138.84729pt x 138.83621pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </home/jose/Documents/MATLAB/RM/TP1_RM/presentation/logo.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 107--115
-
- []
-
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </home/jose/Documents/MATLAB/RM/TP1_RM/report/logo.jpg>]
 <plotting_path.png, id=12, 535.33333pt x 356.88889pt>
 File: plotting_path.png Graphic file (type png)
 <use plotting_path.png>
-Package pdftex.def Info: plotting_path.png  used on input line 120.
-(pdftex.def)             Requested size: 312.40906pt x 208.27544pt.
+Package pdftex.def Info: plotting_path.png  used on input line 111.
+(pdftex.def)             Requested size: 166.61781pt x 111.0755pt.
+
+Overfull \hbox (11.74326pt too wide) in paragraph at lines 116--123
+[][]\T1/cmr/m/n/10 The equa-tion $[]$
+ []
+
+
+Underfull \hbox (badness 1052) in paragraph at lines 116--123
+\T1/cmr/m/n/10 ta-ken between be-a-cons, where the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--123
+
+ []
+
+<plotting_velocities.png, id=13, 459.21562pt x 295.85532pt>
+File: plotting_velocities.png Graphic file (type png)
+<use plotting_velocities.png>
+Package pdftex.def Info: plotting_velocities.png  used on input line 133.
+(pdftex.def)             Requested size: 173.56177pt x 111.82126pt.
+[2 </home/jose/Documents/MATLAB/RM/TP1_RM/report/plotting_path.png (PNG copy)>]
+Underfull \hbox (badness 1796) in paragraph at lines 138--146
+\T1/cmr/m/n/10 ve-lo-ci-ties of the ro-bot. To cal-cu-
+ []
+
+
+Underfull \hbox (badness 2245) in paragraph at lines 138--146
+\T1/cmr/m/n/10 ter, we use the fol-lowing equa-ti-
+ []
+
+
+Overfull \hbox (0.14021pt too wide) in paragraph at lines 138--146
+\OML/cmm/m/it/10 distance \OT1/cmr/m/n/10 = [][] 
+ []
+
+<ekf_calculationspng.png, id=33, 1410.77063pt x 723.45282pt>
+File: ekf_calculationspng.png Graphic file (type png)
+<use ekf_calculationspng.png>
+Package pdftex.def Info: ekf_calculationspng.png  used on input line 170.
+(pdftex.def)             Requested size: 277.69987pt x 142.40292pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 130.
-[2] [3 </home/jose/Documents/MATLAB/RM/TP1_RM/presentation/plotting_path.png (PNG copy)>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 130.
- (/home/jose/Documents/MATLAB/RM/TP1_RM/presentation/report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 130.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 130.
+[3 </home/jose/Documents/MATLAB/RM/TP1_RM/report/plotting_velocities.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 208--212
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 239--247
+
+ []
+
+[4 </home/jose/Documents/MATLAB/RM/TP1_RM/report/ekf_calculationspng.png (PNG copy)>]
+Overfull \hbox (42.72456pt too wide) detected at line 254
+[]\OML/cmm/m/it/10 a \OT1/cmr/m/n/10 = []\OML/cmm/m/it/10 ;  b \OT1/cmr/m/n/10 = []\OML/cmm/m/it/10 ; []  c \OT1/cmr/m/n/10 = 0;
+ []
+
+
+Overfull \hbox (47.40222pt too wide) detected at line 260
+[]\OML/cmm/m/it/10 d \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 ^^@[]\OML/cmm/m/it/10 ;  e \OT1/cmr/m/n/10 = []\OML/cmm/m/it/10 ; []  f \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 1;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--272
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--282
+
+ []
+
+<plotting_robot_vels.png, id=54, 1410.77063pt x 723.45282pt>
+File: plotting_robot_vels.png Graphic file (type png)
+<use plotting_robot_vels.png>
+Package pdftex.def Info: plotting_robot_vels.png  used on input line 294.
+(pdftex.def)             Requested size: 173.56177pt x 88.9963pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--305
+
+ []
+
+[5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 338.
+ [6 </home/jose/Documents/MATLAB/RM/TP1_RM/report/plotting_robot_vels.png (PNG copy)>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 338.
+ (/home/jose/Documents/MATLAB/RM/TP1_RM/report/report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 338.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 338.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 130.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 338.
  ) 
 Here is how much of TeX's memory you used:
- 8803 strings out of 481239
- 127219 string characters out of 5920377
- 417494 words of memory out of 5000000
- 23922 multiletter control sequences out of 15000+600000
- 537749 words of font info for 33 fonts, out of 8000000 for 9000
+ 8932 strings out of 481239
+ 128922 string characters out of 5920377
+ 421941 words of memory out of 5000000
+ 24016 multiletter control sequences out of 15000+600000
+ 541558 words of font info for 43 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 34i,6n,37p,274b,348s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on /home/jose/Documents/MATLAB/RM/TP1_RM/presentation/report.pdf (3 pages, 179866 bytes).
+ 34i,10n,37p,375b,387s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on /home/jose/Documents/MATLAB/RM/TP1_RM/report/report.pdf (6 pages, 403689 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
- 8 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 133 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

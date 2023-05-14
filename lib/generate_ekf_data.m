@@ -67,6 +67,7 @@ end
 
 
 %Format: time_step,landmarkID1,bearing1,range1,landmarkID2,bearing2,range2,...
+obs_noise=[0.25, 0.1];
 obs_range_bearing = [];
 for i=1:num_steps    
     for j=1:N
@@ -77,7 +78,7 @@ for i=1:num_steps
     noise_phi    =randn*sig_phi;
     sensor_noise =[noise_r  noise_phi];
     %BeaconDetection for each step
-    B_bearing=BeaconDetection(N,xstate_true(i+1,2:4)); 
+    B_bearing=BeaconDetection(N,xstate_true(i+1,2:4),obs_noise); 
     z=[];
     %z=based on variable id, get the range and bearing of landmark with that id. z is a vector with id,range,bearing
 

@@ -47,11 +47,10 @@ sig_omega = 0.1;
 % observation: range, bearing
 sig_r   = 0.1;
 sig_phi = 0.1;
+obs_noise=[0.25, 0.1];
 
 
-
-
-B=BeaconDetection(N,x);
+B=BeaconDetection(N,x,obs_noise);
 
 
 
@@ -87,12 +86,61 @@ B=BeaconDetection(N,x);
 
 
 %--------------------------------------------------------------------------
+%error calculations for x,y values
+for i=1:length(xstate_EKF)
+    error(i)=norm(xstate_EKF(i,2)-xstate_true(i,2));
+end
+disp("errors for x values")
+
+
+error_avg=mean(error);
+error_min=min(error);
+error_max=max(error);
+error_mdev=std(error);
+
+fprintf(' average error=%f ,\n smallest error=%f ,\n maximum error=%f,\n deviation =%f\n\n\n',error_avg,error_min,error_max,error_mdev)
+
+disp("erros for y values")
+for i=1:length(xstate_EKF)
+    error(i)=norm(xstate_EKF(i,3)-xstate_true(i,3));
+end
+error_avg=mean(error);
+error_min=min(error);
+error_max=max(error);
+error_mdev=std(error);
+disp("errors for x values")
+fprintf(' average error=%f ,\n smallest error=%f ,\n maximum error=%f,\n deviation =%f\n\n\n',error_avg,error_min,error_max,error_mdev)
+
+
+
+disp("errors for theta values")
+for i=1:length(xstate_EKF)
+    error(i)=norm(xstate_EKF(i,4)-xstate_true(i,4));
+end
+%average, min,avg,max,deviation
+
+error_avg=mean(error);
+error_min=min(error);
+error_max=max(error);
+error_mdev=std(error);
+fprintf(' average error=%f ,\n smallest error=%f ,\n maximum error=%f,\n deviation =%f\n\n\n',error_avg,error_min,error_max,error_mdev)
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------------------------------
 DIR = 'output';
 % Check if the directory exists
 if ~exist(DIR, 'dir')
